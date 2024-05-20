@@ -50,7 +50,6 @@
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
 osThreadId remoteHandle;
-osThreadId saveHandle;
 osThreadId chassisHandle;
 osThreadId liftHandle;
 // osThreadId cardHandle;
@@ -62,7 +61,6 @@ osThreadId liftHandle;
 
 void StartDefaultTask(void const * argument);
 void remote_task(void const * argument);
-void save_task(void const * argument);
 void chassis_task(void const * argument);
 void Lifting_task(void const * argument);
 // void card_task(void const * argument);
@@ -119,10 +117,6 @@ void MX_FREERTOS_Init(void) {
   /* definition and creation of remote */
   osThreadDef(remote, remote_task, osPriorityNormal, 0, 128);
   remoteHandle = osThreadCreate(osThread(remote), NULL);
-
-  /* definition and creation of save */
-  osThreadDef(save, save_task, osPriorityNormal, 0, 128);
-  saveHandle = osThreadCreate(osThread(save), NULL);
 
   /* definition and creation of chassis */
   osThreadDef(chassis, chassis_task, osPriorityNormal, 0, 128);

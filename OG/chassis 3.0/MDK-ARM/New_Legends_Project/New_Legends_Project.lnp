@@ -9,7 +9,6 @@
 "new_legends_project\usart.o"
 "new_legends_project\stm32f4xx_it.o"
 "new_legends_project\stm32f4xx_hal_msp.o"
-"new_legends_project\save.o"
 "new_legends_project\remote_control.o"
 "new_legends_project\chassis.o"
 "new_legends_project\can_receive.o"

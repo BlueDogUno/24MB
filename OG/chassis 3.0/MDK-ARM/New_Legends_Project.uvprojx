@@ -495,11 +495,6 @@
           <GroupName>APP</GroupName>
           <Files>
             <File>
-              <FileName>save.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\APP\save.c</FilePath>
-            </File>
-            <File>
               <FileName>remote_control.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\APP\remote_control.c</FilePath>
