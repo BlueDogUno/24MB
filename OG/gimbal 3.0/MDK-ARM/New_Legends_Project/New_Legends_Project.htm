@@ -3,7 +3,7 @@
 <title>Static Call Graph - [New_Legends_Project\New_Legends_Project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image New_Legends_Project\New_Legends_Project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Mon May 20 17:35:14 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Mon May 20 21:04:57 2024
 <BR><P>
 <H3>Maximum Stack Usage =        232 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -646,8 +646,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f407xx.o(RESET)
 </UL>
-<P><STRONG><a name="[7f]"></a>DM_set_sent</STRONG> (Thumb, 256 bytes, Stack size 24 bytes, foerarm.o(i.DM_set_sent))
-<BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = DM_set_sent &rArr; MIT_CtrlMotor &rArr; HAL_CAN_AddTxMessage
+<P><STRONG><a name="[7f]"></a>DM_set_sent</STRONG> (Thumb, 370 bytes, Stack size 32 bytes, foerarm.o(i.DM_set_sent))
+<BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = DM_set_sent &rArr; MIT_CtrlMotor &rArr; HAL_CAN_AddTxMessage
 </UL>
 <BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MIT_CtrlMotor
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
@@ -1343,7 +1343,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;forearm_task
 </UL>
 
-<P><STRONG><a name="[ed]"></a>forearm_init</STRONG> (Thumb, 180 bytes, Stack size 40 bytes, foerarm.o(i.forearm_init))
+<P><STRONG><a name="[ed]"></a>forearm_init</STRONG> (Thumb, 218 bytes, Stack size 40 bytes, foerarm.o(i.forearm_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = forearm_init &rArr; Enable_CtrlMotor &rArr; HAL_CAN_AddTxMessage
 </UL>
 <BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
@@ -1356,8 +1356,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;forearm_task
 </UL>
 
-<P><STRONG><a name="[f2]"></a>forearm_set_mode</STRONG> (Thumb, 578 bytes, Stack size 32 bytes, foerarm.o(i.forearm_set_mode))
-<BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = forearm_set_mode &rArr; DM_set_sent &rArr; MIT_CtrlMotor &rArr; HAL_CAN_AddTxMessage
+<P><STRONG><a name="[f2]"></a>forearm_set_mode</STRONG> (Thumb, 652 bytes, Stack size 32 bytes, foerarm.o(i.forearm_set_mode))
+<BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = forearm_set_mode &rArr; DM_set_sent &rArr; MIT_CtrlMotor &rArr; HAL_CAN_AddTxMessage
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DM_set_sent
 </UL>
@@ -1365,7 +1365,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[66]"></a>forearm_task</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, foerarm.o(i.forearm_task))
-<BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = forearm_task &rArr; forearm_set_mode &rArr; DM_set_sent &rArr; MIT_CtrlMotor &rArr; HAL_CAN_AddTxMessage
+<BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = forearm_task &rArr; forearm_set_mode &rArr; DM_set_sent &rArr; MIT_CtrlMotor &rArr; HAL_CAN_AddTxMessage
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;forearm_set_mode
 <LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;forearm_init

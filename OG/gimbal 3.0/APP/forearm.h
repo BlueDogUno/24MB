@@ -14,42 +14,37 @@
 #include "catch_auto.h"
 #include "DMPower.h"
 
-
+//------------------------达妙------------------------
 #define DAMIAO_ROLL  0x01   //达妙roll轴电机
-
-#define DAMIAO_PITCH 0x03   //达妙pitch轴电机
-
-
-#define DAMIAO_ROLL_KP 2
-#define DAMIAO_PITCH_KP 2
+#define DAMIAO_PITCH 0x02   //达妙pitch轴电机
+#define DAMIAO_YAW  0x03    //达妙yaw轴电机
 
 #define DAMIAO_ROLL_SPEED 0.02
 #define DAMIAO_PITCH_SPEED 0.02
+#define DAMIAO_YAW_SPEED 0.02
 
-#define DAMIAO_ROLL_LIMIT1 3.14
-#define DAMIAO_ROLL_LIMIT2 -3.14
-#define DAMIAO_PITCH_LIMIT1 3.5
-#define DAMIAO_PITCH_LIMIT2 -3.5
+#define DM_ROLL_1_ANGLE_MAX 1.7
+#define DM_ROLL_1_ANGLE_MIN -1.7
+
+#define DM_PITCH_2_ANGLE_MAX 3.0
+#define DM_PITCH_2_ANGLE_MIN -3.0
+
+#define DM_YAW_3_ANGLE_MAX 0.45
+#define DM_YAW_3_ANGLE_MIN -3.0
+
 
 #define DM_DELAY 5
 
 
 //大喵电机结构体 同下forearm.can，基本没用
 
-typedef struct //YODO待补充电机读取数据
+typedef struct //TODO待补充电机读取数据
 {
     int8_t  state;
+    float angle_target;
+
 }damiao_can;
 
-typedef struct 
-{
-    uint16_t pos_tmp;
-    uint16_t vel_tmp;
-    uint16_t kp_tmp;
-    uint16_t kd_tmp;
-    uint16_t tor_tmp;
-
-}damiao_can_e;
 
 //小臂 大结构体 出爪
 typedef struct
@@ -95,10 +90,8 @@ typedef struct
     //达妙电机
     damiao_can damiao_roll;
     damiao_can damiao_pitch;
-
-    //达妙目标位置
-    float damiao_roll_angle;
-    float damiao_pitch_angle;
+    damiao_can damiao_yaw;
+   
 
     float flip_angle;
     float flip_stay_angle;
@@ -150,12 +143,6 @@ typedef struct
     #define flip_state_is_stop       (forearm.can.flip_state == stop)
     #define flip_state_is_up         (forearm.can.flip_state == forward)//暂定
     #define flip_state_is_down       (forearm.can.flip_state == reverse)
-
-    //达妙状态,有点冗余
-    #define damiao_roll_state_is_stop       (forearm.damiao_roll.state == stop)
-    #define damiao_roll_state_is_forward    (forearm.damiao_roll.state = forward)
-    #define damiao_roll_state_is_reverse    (forearm.damiao_roll.state = reverse)
-    
 
 }forearm_ctrl_t;
 

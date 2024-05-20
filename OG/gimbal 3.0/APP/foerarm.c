@@ -43,7 +43,6 @@ int8_t forearm_forearm_last_flag = 0;
 
 void forearm_set_mode(void)
 {
-    forearm.damiao_roll.state =  stop;
     if(left_switch_is_down&&right_switch_is_up)
     {
         forearm_keyboard = 1;
@@ -114,7 +113,7 @@ void forearm_set_mode(void)
     //roll轴达妙旋转
     if(forearm_keyboard == 0)
     {
-        if (left_switch_is_up && right_switch_is_down)
+        if (left_switch_is_up && right_switch_is_up)
         {
             if (left_rocker_up)
             {
@@ -157,7 +156,7 @@ void forearm_set_mode(void)
     //pitch轴达妙旋转
     if(forearm_keyboard == 0)
     {
-        if (left_switch_is_up && right_switch_is_up)
+        if (left_switch_is_up && right_switch_is_mid)
         {
             if (left_rocker_up)
             {
@@ -194,6 +193,48 @@ void forearm_set_mode(void)
         else
         {
             forearm.damiao_pitch.state =   stop;
+        }   
+    }
+    //yaw轴达妙旋转
+    if(forearm_keyboard == 0)
+    {
+        if (left_switch_is_up && right_switch_is_down)
+        {
+            if (left_rocker_up)
+            {
+                forearm.damiao_yaw.state = forward; 
+            }
+            if (left_rocker_down)
+            {
+                forearm.damiao_yaw.state =  reverse;
+            }
+            if(left_rocker_mid)
+            {
+                forearm.damiao_yaw.state =  stop;
+            }
+        }
+        else {
+            forearm.damiao_yaw.state =  stop;
+        }
+    }else{
+        if (forearm.rc_data->key.v == KEY_PRESSED_OFFSET_C)
+        {
+            if (forearm.rc_data->mouse.y < 0)
+            {
+               forearm.damiao_yaw.state =  forward;
+
+            }else if(forearm.rc_data->mouse.y > 0)
+            {
+                forearm.damiao_yaw.state =  reverse;
+
+            }else
+            {
+                forearm.damiao_yaw.state =  stop;
+            }
+        }
+        else
+        {
+            forearm.damiao_yaw.state =   stop;
         }   
     }
 
@@ -492,51 +533,74 @@ void forearm_control(void)
 }
 
 void DM_set_sent(void){
-    //达妙roll  DAMIAO_ROLL id为2
+    //达妙roll  DAMIAO_ROLL 
     if (forearm.damiao_roll.state ==   stop)
     {
 
     }else if (forearm.damiao_roll.state ==  forward)
     {   
-        forearm.damiao_roll_angle += DAMIAO_ROLL_SPEED;
+        forearm.damiao_roll.angle_target += DAMIAO_ROLL_SPEED;
+
     }else if (forearm.damiao_roll.state ==  reverse)
     {
-        forearm.damiao_roll_angle -= DAMIAO_ROLL_SPEED;
+        forearm.damiao_roll.angle_target -= DAMIAO_ROLL_SPEED;
     }
-    if (forearm.damiao_roll_angle > DAMIAO_ROLL_LIMIT1 )
+    if (forearm.damiao_roll.angle_target > DM_ROLL_1_ANGLE_MAX )
     {
-        forearm.damiao_roll_angle = DAMIAO_ROLL_LIMIT1;
+        forearm.damiao_roll.angle_target = DM_ROLL_1_ANGLE_MAX;
 
-    }else if (forearm.damiao_roll_angle <DAMIAO_ROLL_LIMIT2)
+    }else if (forearm.damiao_roll.angle_target <DM_ROLL_1_ANGLE_MIN)
     {
-        forearm.damiao_roll_angle = DAMIAO_ROLL_LIMIT2;
+        forearm.damiao_roll.angle_target = DM_ROLL_1_ANGLE_MIN;
     }
-    MIT_CtrlMotor(&hcan1,MOTOR2,forearm.damiao_roll_angle,0,2,1,0);
+    MIT_CtrlMotor(&hcan1,DAMIAO_ROLL,forearm.damiao_roll.angle_target,0,2,1,0);
     HAL_Delay(DM_DELAY);
 
     
-    //达妙pitch DAMIAO_PITCH    id为4
+    //达妙pitch DAMIAO_PITCH    
     if (forearm.damiao_pitch.state ==   stop)
     {
 
-
     }else if (forearm.damiao_pitch.state ==  forward)
     {   
-        forearm.damiao_pitch_angle += DAMIAO_PITCH_SPEED;
+        forearm.damiao_pitch.angle_target += DAMIAO_PITCH_SPEED;
 
     }else if (forearm.damiao_pitch.state ==  reverse)
     {
-        forearm.damiao_pitch_angle -= DAMIAO_PITCH_SPEED;
+        forearm.damiao_pitch.angle_target -= DAMIAO_PITCH_SPEED;
     }
-    if (forearm.damiao_pitch_angle > DAMIAO_PITCH_LIMIT1 )
+    if (forearm.damiao_pitch.angle_target > DM_PITCH_2_ANGLE_MAX )
     {
-        forearm.damiao_pitch_angle = DAMIAO_PITCH_LIMIT1;
+        forearm.damiao_pitch.angle_target = DM_PITCH_2_ANGLE_MAX;
 
-    } else if (forearm.damiao_pitch_angle <DAMIAO_PITCH_LIMIT2)
+    } else if (forearm.damiao_pitch.angle_target <DM_PITCH_2_ANGLE_MIN)
     {
-        forearm.damiao_pitch_angle = DAMIAO_PITCH_LIMIT2;
+        forearm.damiao_pitch.angle_target = DM_PITCH_2_ANGLE_MIN;
     }
-    MIT_CtrlMotor(&hcan1,MOTOR4,forearm.damiao_pitch_angle,0,2,1,0);
+    MIT_CtrlMotor(&hcan1,DAMIAO_PITCH,forearm.damiao_pitch.angle_target,0,2,1,0);
+    HAL_Delay(DM_DELAY);
+
+    //达妙yaw DAMIAO_YAW  
+    if (forearm.damiao_yaw.state ==   stop)
+    {
+
+    }else if (forearm.damiao_yaw.state ==  forward)
+    {   
+        forearm.damiao_yaw.angle_target += DAMIAO_YAW_SPEED;
+
+    }else if (forearm.damiao_yaw.state ==  reverse)
+    {
+        forearm.damiao_yaw.angle_target -= DAMIAO_YAW_SPEED;
+    }
+    if (forearm.damiao_yaw.angle_target > DM_YAW_3_ANGLE_MAX )
+    {
+        forearm.damiao_yaw.angle_target = DM_YAW_3_ANGLE_MAX;
+
+    } else if (forearm.damiao_yaw.angle_target <DM_YAW_3_ANGLE_MIN)
+    {
+        forearm.damiao_yaw.angle_target = DM_YAW_3_ANGLE_MIN;
+    }
+    MIT_CtrlMotor(&hcan1,DAMIAO_YAW,forearm.damiao_yaw.angle_target,0,2,1,0);
     HAL_Delay(DM_DELAY);
 }
 // void catch_auto_control(void)
@@ -707,9 +771,13 @@ void forearm_init(void)
     forearm.can.yaw_state = stop;
     forearm.damiao_roll.state =  stop;
     forearm.damiao_pitch.state = stop;
+    forearm.damiao_yaw.state =  stop;
     forearm.stretch_lenth = 0.0f;
-    forearm.damiao_pitch_angle = 0.0f;
-    forearm.damiao_roll_angle = 0.0f;
+    
+    forearm.damiao_roll.angle_target = 0.0f;
+    forearm.damiao_pitch.angle_target = 0.0f;
+    forearm.damiao_yaw.angle_target = 0.0f;
+
     forearm.yaw_stay_angle = forearm.yaw_angle;
     forearm.yaw_angle = 0;
     //addmotor09
@@ -718,9 +786,11 @@ void forearm_init(void)
     //达妙电机使能
     //注意can终端电阻配置，和can发送时间间隔。可能会影响电机的使能
 
-    Enable_CtrlMotor(&hcan1,MOTOR2,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFC);
+    Enable_CtrlMotor(&hcan1,DAMIAO_ROLL,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFC);
     HAL_Delay(800);
-    Enable_CtrlMotor(&hcan1,MOTOR4,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFC);
+    Enable_CtrlMotor(&hcan1,DAMIAO_PITCH,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFC);
+    HAL_Delay(800);
+    Enable_CtrlMotor(&hcan1,DAMIAO_YAW,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFC);
     HAL_Delay(800);
 }
 
