@@ -445,13 +445,14 @@ void forearm_control(void)
     //接收电机状态
     forearm.can.roll_speed = forearm.motor_measure[0]->speed_rpm;
     forearm.can.slid_speed = forearm.motor_measure[1]->speed_rpm;
-    forearm.can.stretch_speed = forearm.motor_measure[2]->speed_rpm;
+    forearm.can.stretch_speed_L = forearm.motor_measure[2]->speed_rpm;
+    forearm.can.stretch_speed_R = forearm.motor_measure[4]->speed_rpm;
     forearm.can.yaw_speed = forearm.motor_measure[3]->speed_rpm;
     // forearm.can.flip_right_speed = forearm.motor_measure[4]->speed_rpm;
     //addmotor02
 
 
-    // 出爪
+// 出爪
     if (stretch_state_is_stop)
     {
         forearm.can.stretch_target   =   0;
@@ -465,7 +466,10 @@ void forearm_control(void)
     {
         forearm.can.stretch_target   =   -160 * 19;
     }
-    forearm.can.stretch = (int16_t)forearm_PID_calc(&forearm_PID[2],forearm.can.stretch_speed,forearm.can.stretch_target);
+    //控制出抓电机
+    forearm.can.stretch_L = (int16_t)forearm_PID_calc(&forearm_PID[2],forearm.can.stretch_speed_L,forearm.can.stretch_target);
+
+    forearm.can.stretch_R = (int16_t)forearm_PID_calc(&forearm_PID[6],forearm.can.stretch_speed_R,-forearm.can.stretch_target);
     
 
 
@@ -620,12 +624,49 @@ void forearm_can_send(void)
     forearm_can_send_data[1] = forearm.can.roll;
     forearm_can_send_data[2] = forearm.can.slid >> 8;
     forearm_can_send_data[3] = forearm.can.slid;
-    forearm_can_send_data[4] = forearm.can.stretch >> 8;
-    forearm_can_send_data[5] = forearm.can.stretch;
+    forearm_can_send_data[4] = forearm.can.stretch_L >> 8;
+    forearm_can_send_data[5] = forearm.can.stretch_L;
     forearm_can_send_data[6] = forearm.can.yaw >> 8;
     forearm_can_send_data[7] = forearm.can.yaw;
 
-    HAL_CAN_AddTxMessage(&hcan2, &can_tx_message, forearm_can_send_data, &send_mail_box);
+    //HAL_CAN_AddTxMessage(&hcan2, &can_tx_message, forearm_can_send_data, &send_mail_box);
+	  if(HAL_CAN_AddTxMessage(&hcan2, &can_tx_message, forearm_can_send_data, (uint32_t*)CAN_TX_MAILBOX0) != HAL_OK) //
+	  {
+		if(HAL_CAN_AddTxMessage(&hcan2, &can_tx_message, forearm_can_send_data, (uint32_t*)CAN_TX_MAILBOX1) != HAL_OK)
+		{
+			HAL_CAN_AddTxMessage(&hcan2, &can_tx_message, forearm_can_send_data, (uint32_t*)CAN_TX_MAILBOX2);
+        }
+    }
+}
+
+
+//出抓电机
+static CAN_TxHeaderTypeDef  can_tx_stretch_message;
+static uint8_t              forearm_stretch_can_send_data[8];
+void forearm_stretch_can_send(void)
+{
+    uint32_t send_mail_box;
+    can_tx_stretch_message.StdId = 0x1FF;
+    can_tx_stretch_message.IDE = CAN_ID_STD;
+    can_tx_stretch_message.RTR = CAN_RTR_DATA;
+    can_tx_stretch_message.DLC = 0x08;
+    forearm_stretch_can_send_data[0] = forearm.can.stretch_R >> 8;
+    forearm_stretch_can_send_data[1] = forearm.can.stretch_R;
+    forearm_stretch_can_send_data[2] = 0;
+    forearm_stretch_can_send_data[3] = 0;
+    forearm_stretch_can_send_data[4] = 0;
+    forearm_stretch_can_send_data[5] = 0;
+    forearm_stretch_can_send_data[6] = 0;
+    forearm_stretch_can_send_data[7] = 0;
+
+   // HAL_CAN_AddTxMessage(&hcan2, &can_tx_stretch_message, forearm_stretch_can_send_data, &send_mail_box);
+	  if(HAL_CAN_AddTxMessage(&hcan2, &can_tx_stretch_message, forearm_stretch_can_send_data, (uint32_t*)CAN_TX_MAILBOX0) != HAL_OK) //
+	  {
+		if(HAL_CAN_AddTxMessage(&hcan2, &can_tx_stretch_message, forearm_stretch_can_send_data, (uint32_t*)CAN_TX_MAILBOX1) != HAL_OK)
+		{
+			HAL_CAN_AddTxMessage(&hcan2, &can_tx_stretch_message, forearm_stretch_can_send_data, (uint32_t*)CAN_TX_MAILBOX2);
+        }
+    }
 }
 //addmotor07
 
@@ -747,6 +788,16 @@ void forearm_PID_init(void)
     forearm_PID[3].max_iout = FOREARM_YAW_MIOUT;
     forearm_PID[3].Dbuf[0] = forearm_PID[3].Dbuf[1] = forearm_PID[3].Dbuf[2] = 0.0f;
     forearm_PID[3].error[0] = forearm_PID[3].error[1] = forearm_PID[3].error[2] = forearm_PID[3].Pout = forearm_PID[3].Iout = forearm_PID[3].Dout = forearm_PID[3].out = 0.0f;
+
+    forearm_PID[6].mode = PID_POSITION;
+    forearm_PID[6].Kp = FOREARM_STRETCH_R_KP;
+    forearm_PID[6].Ki = FOREARM_STRETCH_R_KI;
+    forearm_PID[6].Kd = FOREARM_STRETCH_R_KD;
+    forearm_PID[6].max_out = FOREARM_STRETCH_R_MOUT;
+    forearm_PID[6].max_iout = FOREARM_STRETCH_R_MIOUT;
+    forearm_PID[6].Dbuf[0] = forearm_PID[0].Dbuf[1] = forearm_PID[0].Dbuf[2] = 0.0f;
+    forearm_PID[6].error[0] = forearm_PID[0].error[1] = forearm_PID[0].error[2] = forearm_PID[0].Pout = forearm_PID[0].Iout = forearm_PID[0].Dout = forearm_PID[0].out = 0.0f;
+
 
     //addmotor08
 }

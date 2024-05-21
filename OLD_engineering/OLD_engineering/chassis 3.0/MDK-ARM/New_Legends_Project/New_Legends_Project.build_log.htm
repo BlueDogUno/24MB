@@ -1,0 +1,79 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.35.0.0
+Copyright (C) 2021 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: 1 2171529124@qq.com, 1, LIC=BUURY-IBZM4-8TU3P-MU2LR-ULX26-JUCQV
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.35.0.2
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         SARMCM3.DLL V5.35.0.2
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      CMSIS_AGDI.dll V1.33.0.0
+Dialog DLL:      TCM.DLL V1.53.0.0
+ 
+<h2>Project:</h2>
+C:\Users\21715\Desktop\OLD_engineering\chassis 3.0\MDK-ARM\New_Legends_Project.uvprojx
+Project File Date:  05/20/2024
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'New_Legends_Project'
+compiling communication.c...
+..\APP\remote_control.h(105): warning:  #64-D: declaration does not declare anything
+  extern RC_ctrl_t;
+..\APP\remote_control.h(105): warning:  #1000-D: a storage class may not be specified here
+  extern RC_ctrl_t;
+..\APP\communication.h(9): warning:  #1295-D: Deprecated declaration run - give arg types
+  void run();
+..\APP\communication.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\APP\communication.c(16): warning:  #550-D: variable "temp_ch1"  was set but never used
+      int16_t temp_ch0, temp_ch2, temp_ch3,temp_ch1;
+..\APP\communication.c(18): warning:  #550-D: variable "s0"  was set but never used
+      int8_t s0,s1;
+..\APP\communication.c(18): warning:  #550-D: variable "s1"  was set but never used
+      int8_t s0,s1;
+..\APP\communication.c: 7 warnings, 0 errors
+linking...
+New_Legends_Project\New_Legends_Project.axf: Error: L6218E: Undefined symbol rc_ctrl (referred from remote_control.o).
+Not enough information to list image symbols.
+Not enough information to list load addresses in the image map.
+Finished: 2 information, 0 warning and 1 error messages.
+"New_Legends_Project\New_Legends_Project.axf" - 1 Error(s), 7 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.8.0.pack
+                ARM.CMSIS.5.8.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.5.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.16.0.pack
+                Keil.STM32F4xx_DFP.2.16.0
+                STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_New_Legends_Project
+  C:\Users\21715\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include
+  C:\Users\21715\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.5.0
+      Include file:  CMSIS\Core\Include\tz_context.h
+Target not created.
+Build Time Elapsed:  00:00:00
+</pre>
+</body>
+</html>

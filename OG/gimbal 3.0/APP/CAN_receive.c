@@ -198,7 +198,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
             //     }
             // }
             
-            case CAN_STRETCH_ID:
+            case CAN_STRETCH_L_ID:
             {
                 static uint8_t i = 0;
                 //get motor id
@@ -213,6 +213,23 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
                     motor[i].round++;
                 }
             }
+            
+            case CAN_STRETCH_R_ID:
+            {
+                static uint8_t i = 0;
+                //get motor id
+                i = rx_header.StdId - CAN_ROLL_ID;
+                get_motor_measure(&motor[i], rx_data);
+                if(motor[i].ecd - motor[i].last_ecd > 5000)
+                {
+                    motor[i].round--;
+                }
+                if(motor[i].ecd - motor[i].last_ecd < -5000)
+                {
+                    motor[i].round++;
+                }
+            }
+           
             case CAN_ROLL_ID:
             {
                 static uint8_t i = 0;

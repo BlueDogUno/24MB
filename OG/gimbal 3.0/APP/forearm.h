@@ -59,10 +59,13 @@ typedef struct
     struct
     {
         //出爪
-        int16_t stretch;
+        int16_t stretch_L;
+        int16_t stretch_R;
+
         int16_t stretch_target;
         fp32    stretch_lenth;
-        int16_t stretch_speed;
+        int16_t stretch_speed_L;
+        int16_t stretch_speed_R;
         int8_t  stretch_state;
         
         //小臂横移
@@ -208,11 +211,17 @@ float FOREARM_SLID_KD     =   0.0f;
 float FOREARM_SLID_MOUT   =   2000.0f;
 float FOREARM_SLID_MIOUT  =   1.0f;
 //三号电机PID   出爪
-float FOREARM_STRETCH_KP     =   10.0f;
-float FOREARM_STRETCH_KI     =   0.0f;
-float FOREARM_STRETCH_KD     =   0.0f;
-float FOREARM_STRETCH_MOUT   =   2000.0f;
-float FOREARM_STRETCH_MIOUT  =   1.0f;
+float FOREARM_STRETCH_L_KP     =   15.0f;
+float FOREARM_STRETCH_L_KI     =   0.0f;
+float FOREARM_STRETCH_L_KD     =   0.0f;
+float FOREARM_STRETCH_L_MOUT   =   2000.0f;
+float FOREARM_STRETCH_L_MIOUT  =   1.0f;
+//五号电机PID   出爪
+float FOREARM_STRETCH_R_KP     =   10.0f;
+float FOREARM_STRETCH_R_KI     =   0.0f;
+float FOREARM_STRETCH_R_KD     =   5.0f;
+float FOREARM_STRETCH_R_MOUT   =   2000.0f;
+float FOREARM_STRETCH_R_MIOUT  =   1.0f;
 //四号电机PID   翻爪左
 float FOREARM_FLIP_LEFT_KP     =   20.0f;
 float FOREARM_FLIP_LEFT_KI     =   0.0f;

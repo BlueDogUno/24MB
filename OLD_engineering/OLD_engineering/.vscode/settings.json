@@ -1,0 +1,9 @@
+{
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        "remote_control.h": "c",
+        "can_receive.h": "c",
+        "communication.h": "c",
+        "dmpower.h": "c"
+    }
+}

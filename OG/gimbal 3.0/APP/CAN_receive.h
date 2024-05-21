@@ -7,16 +7,22 @@
 #define MOTOR1  0x01   //1���ID
 #define MOTOR2  0x02   //2���ID
 #define MOTOR3  0x03   //3���ID
+//alter
+#define MOTOR4  0x04   //3���ID
+
+//
+
+
 //�������޷�
 #define P_MIN   -12.5  //λ����Сֵ
-#define P_MAX   12.5   //λ�����ֵ
+#define P_MAX   12.5   //λ������?
 #define V_MIN   -45    //�ٶ���Сֵ
-#define V_MAX   45     //�ٶ����ֵ
+#define V_MAX   45     //�ٶ�����?
 #define KP_MIN  0      //Kp��Сֵ
-#define KP_MAX  500    //Kp���ֵ
+#define KP_MAX  500    //Kp����?
 #define KD_MIN  0      //Kd��Сֵ
-#define KD_MAX  5      //Kd���ֵ
-#define T_MIN   -18    //ת�����ֵ
+#define KD_MAX  5      //Kd����?
+#define T_MIN   -18    //ת������?
 #define T_MAX   18     //ת����Сֵ
 
 typedef struct 
@@ -37,9 +43,11 @@ typedef enum
 
     CAN_ROLL_ID = 0x201,//[0]
     CAN_SLID_ID = 0x202,//[1]
-    CAN_STRETCH_ID = 0x203,//[2]
-    CAN_YAW_ID = 0x204,//[3]
-
+    CAN_STRETCH_L_ID = 0x203,//[2]
+//alter
+ //   CAN_STRETCH_R_ID = 0x204,//[2]
+    CAN_YAW_ID = 0x204,//[3] 
+    CAN_STRETCH_R_ID = 0x205,//[2]
     // CAN_LIFT_LEFT_ID = 0x205,//[4]
     // CAN_LIFT_RIGHT_ID = 0x206,//[5]
     
@@ -87,7 +95,7 @@ typedef struct
 //�������ṹ��------------
 typedef struct
 {
-    //�����������
+    //�����������?
     int p_int;
     int v_int;
     int t_int;
