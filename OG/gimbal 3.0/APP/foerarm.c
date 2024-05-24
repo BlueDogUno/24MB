@@ -43,12 +43,12 @@ int8_t forearm_forearm_last_flag = 0;
 
 void forearm_set_mode(void)
 {
-    if(left_switch_is_mid&&right_switch_is_down)
-    {
-        forearm_keyboard = 1;
-    }else{
+    // if(left_switch_is_mid&&right_switch_is_down)
+    // {
+    //     forearm_keyboard = 1;
+    // }else{
         forearm_keyboard = 0;
-    }
+    // }
 
     //出爪 X键
     if(forearm_keyboard == 0)
