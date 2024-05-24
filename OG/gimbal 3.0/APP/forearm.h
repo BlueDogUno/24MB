@@ -42,7 +42,7 @@
 typedef struct //TODO待补充电机读取数据
 {
     int8_t  state;
-    float angle_target;
+    double angle_target;
 
 }damiao_can;
 

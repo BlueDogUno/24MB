@@ -15,7 +15,7 @@ void forearm_task(void const *argument)
     }
 }
 forearm_ctrl_t forearm;
-pid_strt forearm_PID[6];
+pid_strt forearm_PID[7];
 int16_t servo_data;
 
 // int8_t  auto_get;//取矿
