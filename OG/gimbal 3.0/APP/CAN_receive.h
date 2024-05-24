@@ -3,27 +3,9 @@
 
 #include "struct_typedef.h"
 
-//������ID
-#define MOTOR1  0x01   //1���ID
-#define MOTOR2  0x02   //2���ID
-#define MOTOR3  0x03   //3���ID
-//alter
-#define MOTOR4  0x04   //3���ID
 
-//
-
-
-//�������޷�
-#define P_MIN   -12.5  //λ����Сֵ
-#define P_MAX   12.5   //λ������?
-#define V_MIN   -45    //�ٶ���Сֵ
-#define V_MAX   45     //�ٶ�����?
-#define KP_MIN  0      //Kp��Сֵ
-#define KP_MAX  500    //Kp����?
-#define KD_MIN  0      //Kd��Сֵ
-#define KD_MAX  5      //Kd����?
-#define T_MIN   -18    //ת������?
-#define T_MAX   18     //ת����Сֵ
+#define BOARD_COM_CAN hcan1
+#define CHASSIS_CAN hcan2
 
 typedef struct 
 {
@@ -36,23 +18,12 @@ typedef struct
 
 typedef enum
 {
-    // CAN_FLIP_LEFT_ID = 0x201,//[0]
-    // CAN_FLIP_RIGHT_ID = 0x202,//[1]
-    // CAN_STRETCH_ID = 0x203,//[2]
-    // CAN_CATCH_ID = 0x204,//[3]
-
     CAN_ROLL_ID = 0x201,//[0]
     CAN_SLID_ID = 0x202,//[1]
     CAN_STRETCH_L_ID = 0x203,//[2]
-//alter
- //   CAN_STRETCH_R_ID = 0x204,//[2]
     CAN_YAW_ID = 0x204,//[3] 
-    CAN_STRETCH_R_ID = 0x205,//[2]
-    // CAN_LIFT_LEFT_ID = 0x205,//[4]
-    // CAN_LIFT_RIGHT_ID = 0x206,//[5]
-    
-    // STRETCH_SENSOR_ID = 0x205,
-    // LIFT_SENSOR_ID = 0x206,
+    CAN_STRETCH_R_ID = 0x205,//[4]
+
 } can_msg_id_can2_e;
 
 //addmotor03
@@ -95,7 +66,7 @@ typedef struct
 //�������ṹ��------------
 typedef struct
 {
-    //�����������?
+    //�����������
     int p_int;
     int v_int;
     int t_int;
@@ -113,6 +84,55 @@ typedef struct
 
 }damiao_maesure_t;
 
+typedef struct {
+  //遥控器数据
+    int16_t ch_0;
+    int16_t ch_1;
+    int16_t ch_2;
+    int16_t ch_3;
+    uint16_t v;
+    uint8_t s0;
+    uint8_t s1;
+
+    bool_t stretch_state;
+    bool_t yaw_state;
+    bool_t roll_state;
+    bool_t flip_state; 
+
+    int8_t auto_mode;
+
+}Top_send_t;
+
+typedef enum
+{
+  //底盘动力电机接收ID  CAN2
+  CAN_MOTIVE_FR_MOTOR_ID = 0x201,
+  CAN_MOTIVE_FL_MOTOR_ID = 0x202,
+  CAN_MOTIVE_BL_MOTOR_ID = 0x203,
+  CAN_MOTIVE_BR_MOTOR_ID = 0x204,
+
+  //实际id 由于不可抗力硬件问题没办法改 把遥控器正负改了一下  勉强用用  
+  // CAN_MOTIVE_FL_MOTOR_ID = 0x201,
+  // CAN_MOTIVE_FR_MOTOR_ID = 0x202,  
+  // CAN_MOTIVE_BR_MOTOR_ID = 0x203,
+  // CAN_MOTIVE_BL_MOTOR_ID = 0x204,
+
+  CAN_CHASSIS_MOTIVE_ALL_ID = 0x200,
+
+  //抬升电机ID CAN2
+  CAN_LIFT_LEFT_MOTOR_ID = 0x205,
+  CAN_LIFT_RIGHT_MOTOR_ID = 0x206,
+
+  
+  CAN_CHASSIS_LIFT_ALL_ID = 0x1FF,
+
+  //板间通信ID
+  CAN_RC_BOARM_COM_ID = 0x301,
+  CAN_SS_BOARD_COM_ID = 0x302,
+  CAN_SEND_LIFT_AUTO_COM_ID = 0x303,
+  // CAN_UI_COM_ID = 0x305,
+
+} can_msg_id_e;
 //���Ͱ�
 // typedef struct
 // {
@@ -131,6 +151,7 @@ typedef struct
 extern const motor_measure_t *get_motor_measure_point(uint8_t i);
 extern const reset_t *get_reset_point(void);
 extern const sensor_measure_t *get_sensor_measure_point(uint8_t i);
-
 extern void can_receive_init(void);
+void receive_rc_board_com(uint8_t data[8]);
+void receive_ss_board_com(uint8_t data[8]);
 #endif

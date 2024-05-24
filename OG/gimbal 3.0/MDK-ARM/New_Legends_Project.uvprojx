@@ -514,6 +514,11 @@
               <FileType>1</FileType>
               <FilePath>..\APP\DMPower.c</FilePath>
             </File>
+            <File>
+              <FileName>communication.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\communication.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

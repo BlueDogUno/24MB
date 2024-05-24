@@ -3,7 +3,7 @@
 <title>Static Call Graph - [New_Legends_Project\New_Legends_Project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image New_Legends_Project\New_Legends_Project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Mon May 20 21:04:57 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Fri May 24 23:01:15 2024
 <BR><P>
 <H3>Maximum Stack Usage =        232 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -619,14 +619,14 @@ Global Symbols
 <P><STRONG><a name="[151]"></a>__semihosting_library_function</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, indicate_semi.o(.text), UNUSED)
 
 <P><STRONG><a name="[21]"></a>CAN1_RX0_IRQHandler</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_it.o(i.CAN1_RX0_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = CAN1_RX0_IRQHandler &rArr; HAL_CAN_IRQHandler &rArr; HAL_CAN_RxFifo0MsgPendingCallback &rArr; HAL_CAN_GetRxMessage
+<BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = CAN1_RX0_IRQHandler &rArr; HAL_CAN_IRQHandler &rArr; HAL_CAN_RxFifo0MsgPendingCallback &rArr; HAL_CAN_GetRxMessage
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_IRQHandler
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f407xx.o(RESET)
 </UL>
 <P><STRONG><a name="[4d]"></a>CAN2_RX0_IRQHandler</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_it.o(i.CAN2_RX0_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = CAN2_RX0_IRQHandler &rArr; HAL_CAN_IRQHandler &rArr; HAL_CAN_RxFifo0MsgPendingCallback &rArr; HAL_CAN_GetRxMessage
+<BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = CAN2_RX0_IRQHandler &rArr; HAL_CAN_IRQHandler &rArr; HAL_CAN_RxFifo0MsgPendingCallback &rArr; HAL_CAN_GetRxMessage
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_IRQHandler
 </UL>
@@ -709,7 +709,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[7d]"></a>HAL_CAN_IRQHandler</STRONG> (Thumb, 508 bytes, Stack size 40 bytes, stm32f4xx_hal_can.o(i.HAL_CAN_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = HAL_CAN_IRQHandler &rArr; HAL_CAN_RxFifo0MsgPendingCallback &rArr; HAL_CAN_GetRxMessage
+<BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = HAL_CAN_IRQHandler &rArr; HAL_CAN_RxFifo0MsgPendingCallback &rArr; HAL_CAN_GetRxMessage
 </UL>
 <BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_WakeUpFromRxMsgCallback
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_TxMailbox2CompleteCallback
@@ -754,11 +754,11 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_IRQHandler
 </UL>
 
-<P><STRONG><a name="[8f]"></a>HAL_CAN_RxFifo0MsgPendingCallback</STRONG> (Thumb, 872 bytes, Stack size 72 bytes, can_receive.o(i.HAL_CAN_RxFifo0MsgPendingCallback))
-<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = HAL_CAN_RxFifo0MsgPendingCallback &rArr; HAL_CAN_GetRxMessage
+<P><STRONG><a name="[8f]"></a>HAL_CAN_RxFifo0MsgPendingCallback</STRONG> (Thumb, 740 bytes, Stack size 56 bytes, can_receive.o(i.HAL_CAN_RxFifo0MsgPendingCallback))
+<BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = HAL_CAN_RxFifo0MsgPendingCallback &rArr; HAL_CAN_GetRxMessage
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uint_to_float
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_GetRxMessage
+<BR>[Calls]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_GetRxMessage
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;receive_rc_board_com
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_IRQHandler
 </UL>
@@ -922,9 +922,9 @@ Global Symbols
 <P><STRONG><a name="[aa]"></a>HAL_RCC_ClockConfig</STRONG> (Thumb, 288 bytes, Stack size 32 bytes, stm32f4xx_hal_rcc.o(i.HAL_RCC_ClockConfig))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = HAL_RCC_ClockConfig &rArr; HAL_RCC_GetSysClockFreq &rArr; __aeabi_uldivmod
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_GetSysClockFreq
+<BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_GetSysClockFreq
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_InitTick
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 </UL>
@@ -1317,11 +1317,11 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;forearm_control
 </UL>
 
-<P><STRONG><a name="[f0]"></a>forearm_PID_init</STRONG> (Thumb, 430 bytes, Stack size 0 bytes, foerarm.o(i.forearm_PID_init))
+<P><STRONG><a name="[f0]"></a>forearm_PID_init</STRONG> (Thumb, 482 bytes, Stack size 0 bytes, foerarm.o(i.forearm_PID_init))
 <BR><BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;forearm_init
 </UL>
 
-<P><STRONG><a name="[e6]"></a>forearm_can_send</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, foerarm.o(i.forearm_can_send))
+<P><STRONG><a name="[e6]"></a>forearm_can_send</STRONG> (Thumb, 110 bytes, Stack size 8 bytes, foerarm.o(i.forearm_can_send))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = forearm_can_send &rArr; HAL_CAN_AddTxMessage
 </UL>
 <BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_AddTxMessage
@@ -1329,7 +1329,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;forearm_task
 </UL>
 
-<P><STRONG><a name="[e7]"></a>forearm_control</STRONG> (Thumb, 394 bytes, Stack size 32 bytes, foerarm.o(i.forearm_control))
+<P><STRONG><a name="[e7]"></a>forearm_control</STRONG> (Thumb, 426 bytes, Stack size 32 bytes, foerarm.o(i.forearm_control))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = forearm_control &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;forearm_PID_calc
@@ -1343,7 +1343,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;forearm_task
 </UL>
 
-<P><STRONG><a name="[ed]"></a>forearm_init</STRONG> (Thumb, 218 bytes, Stack size 40 bytes, foerarm.o(i.forearm_init))
+<P><STRONG><a name="[ed]"></a>forearm_init</STRONG> (Thumb, 210 bytes, Stack size 40 bytes, foerarm.o(i.forearm_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = forearm_init &rArr; Enable_CtrlMotor &rArr; HAL_CAN_AddTxMessage
 </UL>
 <BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
@@ -1445,6 +1445,10 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseNewTask
 </UL>
 
+<P><STRONG><a name="[9d]"></a>receive_rc_board_com</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, can_receive.o(i.receive_rc_board_com))
+<BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_RxFifo0MsgPendingCallback
+</UL>
+
 <P><STRONG><a name="[f3]"></a>remote_control_init</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, remote_control.o(i.remote_control_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = remote_control_init &rArr; RC_init
 </UL>
@@ -1463,10 +1467,6 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> freertos.o(.constdata)
 </UL>
-<P><STRONG><a name="[9d]"></a>uint_to_float</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, dmpower.o(i.uint_to_float))
-<BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_RxFifo0MsgPendingCallback
-</UL>
-
 <P><STRONG><a name="[102]"></a>uxListRemove</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, list.o(i.uxListRemove))
 <BR><BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskIncrementTick
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIdleTask

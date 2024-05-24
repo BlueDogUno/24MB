@@ -48,7 +48,7 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>New_Legends_Project\</OutputDirectory>
+          <OutputDirectory>.\New_Legends_Project\</OutputDirectory>
           <OutputName>New_Legends_Project</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
@@ -513,6 +513,11 @@
               <FileName>lift.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\APP\lift.c</FilePath>
+            </File>
+            <File>
+              <FileName>communication.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\communication.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -1,10 +1,11 @@
 /*
     清朝老工程义肢安装
+    该文件yaw实际为pitch，懒得改了
 */
 #ifndef FOREARM_H
 #define FOREARM_H
 
-//头文件引�?
+//头文件
 #include "remote_control.h"
 #include "struct_typedef.h"
 #include "can.h"
@@ -222,18 +223,7 @@ float FOREARM_STRETCH_R_KI     =   0.0f;
 float FOREARM_STRETCH_R_KD     =   5.0f;
 float FOREARM_STRETCH_R_MOUT   =   2000.0f;
 float FOREARM_STRETCH_R_MIOUT  =   1.0f;
-//四号电机PID   翻爪左
-float FOREARM_FLIP_LEFT_KP     =   20.0f;
-float FOREARM_FLIP_LEFT_KI     =   0.0f;
-float FOREARM_FLIP_LEFT_KD     =   200.0f;
-float FOREARM_FLIP_LEFT_MOUT   =   16000.0f;
-float FOREARM_FLIP_LEFT_MIOUT  =   1.0f;
-//五号电机PID   翻爪右
-float FOREARM_FLIP_RIGHT_KP     =   20.0f;
-float FOREARM_FLIP_RIGHT_KI     =   0.0f;
-float FOREARM_FLIP_RIGHT_KD     =   200.0f;
-float FOREARM_FLIP_RIGHT_MOUT   =   16000.0f;
-float FOREARM_FLIP_RIGHT_MIOUT  =   1.0f;
+
 //翻爪角度环
 float CATCH_ANGLE_KP     =   60.0f;
 float CATCH_ANGLE_KI     =   0.0f;

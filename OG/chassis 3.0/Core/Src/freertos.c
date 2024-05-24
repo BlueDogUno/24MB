@@ -52,6 +52,7 @@ osThreadId defaultTaskHandle;
 osThreadId remoteHandle;
 osThreadId chassisHandle;
 osThreadId liftHandle;
+osThreadId BoardComHandle;
 // osThreadId cardHandle;
 
 /* Private function prototypes -----------------------------------------------*/
@@ -63,6 +64,7 @@ void StartDefaultTask(void const * argument);
 void remote_task(void const * argument);
 void chassis_task(void const * argument);
 void Lifting_task(void const * argument);
+void BoardCom_task(void const * argument);
 // void card_task(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -125,6 +127,10 @@ void MX_FREERTOS_Init(void) {
   /* definition and creation of lift */
   osThreadDef(lift, Lifting_task, osPriorityNormal, 0, 128);
   liftHandle = osThreadCreate(osThread(lift), NULL);
+
+    /* definition and creation of BoardCom */
+  osThreadDef(BoardCom, BoardCom_task, osPriorityNormal, 0, 128);
+ BoardComHandle = osThreadCreate(osThread(BoardCom), NULL);
 
   /* definition and creation of card */
   // osThreadDef(card, card_task, osPriorityNormal, 0, 128);

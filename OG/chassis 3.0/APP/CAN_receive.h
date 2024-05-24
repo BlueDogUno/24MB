@@ -3,6 +3,11 @@
 
 #include "struct_typedef.h"
 
+#define BOARD_COM_CAN hcan2
+
+
+
+
 typedef enum
 {
     CAN_3508_M1_ID = 0x201,
@@ -21,7 +26,7 @@ typedef enum
     
     CAN_DAMIAO_ID = 0x01,//һ�Ŵ�����
     CAN_DAMIAO_ROLL_ID = 0x301, //һ���İ汾�������id
-
+    CAN_RC_BOARM_COM_ID = 0x302,//板件通讯ID
 } can_msg_id_can1_e;
 typedef struct
 {
@@ -40,9 +45,27 @@ typedef struct
     int16_t Reset_last_flag;
 }reset_t;
 
+typedef struct {
+  //遥控器数据
+    int16_t ch_0;
+    int16_t ch_1;
+    int16_t ch_2;
+    int16_t ch_3;
+    uint16_t v;
+    uint8_t s0;
+    uint8_t s1;
+
+    bool_t stretch_state;
+    bool_t yaw_state;
+    bool_t roll_state;
+    bool_t flip_state; 
+
+    int8_t auto_mode;
+
+}Top_send_t;
 
 
 extern const motor_measure_t *get_motor_measure_point(uint8_t i);
 extern const reset_t *get_reset_point(void);
-
+extern void send_rc_board_com(int16_t ch_0, int16_t ch_2, int16_t ch_3, uint16_t v);
 #endif

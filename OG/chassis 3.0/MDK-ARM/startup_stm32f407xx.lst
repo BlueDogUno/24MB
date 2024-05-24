@@ -851,12 +851,13 @@ ARM Macro Assembler    Page 14
 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
-interwork --depend=new_legends_project\startup_stm32f407xx.d -onew_legends_proj
-ect\startup_stm32f407xx.o -I..\Core\Inc -I.\RTE\_New_Legends_Project -ID:\Code\
-IDEss\keil\ARM\CMSIS\5.8.0\CMSIS\Core\Include -ID:\Code\IDEss\keil\Keil\STM32F4
-xx_DFP\2.17.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include --predefine="__UVISION_
-VERSION SETA 535" --predefine="_RTE_ SETA 1" --predefine="STM32F407xx SETA 1" -
--predefine="_RTE_ SETA 1" --list=startup_stm32f407xx.lst startup_stm32f407xx.s
+interwork --depend=.\new_legends_project\startup_stm32f407xx.d -o.\new_legends_
+project\startup_stm32f407xx.o -I..\Core\Inc -I.\RTE\_New_Legends_Project -ID:\C
+ode\IDEss\keil\ARM\CMSIS\5.8.0\CMSIS\Core\Include -ID:\Code\IDEss\keil\Keil\STM
+32F4xx_DFP\2.17.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include --predefine="__UVIS
+ION_VERSION SETA 535" --predefine="_RTE_ SETA 1" --predefine="STM32F407xx SETA 
+1" --predefine="_RTE_ SETA 1" --list=startup_stm32f407xx.lst startup_stm32f407x
+x.s
 
 
 

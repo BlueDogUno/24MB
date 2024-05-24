@@ -43,7 +43,7 @@ int8_t forearm_forearm_last_flag = 0;
 
 void forearm_set_mode(void)
 {
-    if(left_switch_is_down&&right_switch_is_up)
+    if(left_switch_is_mid&&right_switch_is_down)
     {
         forearm_keyboard = 1;
     }else{
@@ -54,7 +54,7 @@ void forearm_set_mode(void)
     if(forearm_keyboard == 0)
     {
         // 遥控器模式
-        if (left_switch_is_up && right_switch_is_mid)
+        if (left_switch_is_down && right_switch_is_up)
         {
             //起始赋值
             if(left_rocker_up)
@@ -241,7 +241,7 @@ void forearm_set_mode(void)
     //小臂2006横移
     if(forearm_keyboard == 0)
     {
-        if (left_switch_is_mid && right_switch_is_up)
+        if (left_switch_is_down && right_switch_is_down)
         {
             if (left_rocker_up)
             {
@@ -284,7 +284,7 @@ void forearm_set_mode(void)
     //小臂2006转矿
     if(forearm_keyboard == 0)
     {
-        if (left_switch_is_down && right_switch_is_mid)
+        if (left_switch_is_mid && right_switch_is_up)
         {
             if (left_rocker_up)
             {
@@ -745,31 +745,13 @@ void forearm_PID_init(void)
 
 
     forearm_PID[2].mode = PID_POSITION;
-    forearm_PID[2].Kp = FOREARM_STRETCH_KP;
-    forearm_PID[2].Ki = FOREARM_STRETCH_KI;
-    forearm_PID[2].Kd = FOREARM_STRETCH_KD;
-    forearm_PID[2].max_out = FOREARM_STRETCH_MOUT;
-    forearm_PID[2].max_iout = FOREARM_STRETCH_MIOUT;
+    forearm_PID[2].Kp = FOREARM_STRETCH_L_KP;
+    forearm_PID[2].Ki = FOREARM_STRETCH_L_KI;
+    forearm_PID[2].Kd = FOREARM_STRETCH_L_KD;
+    forearm_PID[2].max_out = FOREARM_STRETCH_L_MOUT;
+    forearm_PID[2].max_iout = FOREARM_STRETCH_L_MIOUT;
     forearm_PID[2].Dbuf[0] = forearm_PID[2].Dbuf[1] = forearm_PID[2].Dbuf[2] = 0.0f;
     forearm_PID[2].error[0] = forearm_PID[2].error[1] = forearm_PID[2].error[2] = forearm_PID[2].Pout = forearm_PID[2].Iout = forearm_PID[2].Dout = forearm_PID[2].out = 0.0f;
-
-    // forearm_PID[3].mode = PID_POSITION;
-    // forearm_PID[3].Kp = FOREARM_FLIP_LEFT_KP;
-    // forearm_PID[3].Ki = FOREARM_STRETCH_KI;
-    // forearm_PID[3].Kd = FOREARM_FLIP_LEFT_KD;
-    // forearm_PID[3].max_out = FOREARM_FLIP_LEFT_MOUT;
-    // forearm_PID[3].max_iout = FOREARM_FLIP_LEFT_MIOUT;
-    // forearm_PID[3].Dbuf[0] = forearm_PID[3].Dbuf[1] = forearm_PID[3].Dbuf[2] = 0.0f;
-    // forearm_PID[3].error[0] = forearm_PID[3].error[1] = forearm_PID[3].error[2] = forearm_PID[3].Pout = forearm_PID[3].Iout = forearm_PID[3].Dout = forearm_PID[3].out = 0.0f;
-
-    // forearm_PID[4].mode = PID_POSITION;
-    // forearm_PID[4].Kp = FOREARM_FLIP_RIGHT_KP;
-    // forearm_PID[4].Ki = FOREARM_FLIP_RIGHT_KI;
-    // forearm_PID[4].Kd = FOREARM_FLIP_RIGHT_KD;
-    // forearm_PID[4].max_out = FOREARM_FLIP_RIGHT_MOUT;
-    // forearm_PID[4].max_iout = FOREARM_FLIP_RIGHT_MIOUT;
-    // forearm_PID[4].Dbuf[0] = forearm_PID[4].Dbuf[1] = forearm_PID[4].Dbuf[2] = 0.0f;
-    // forearm_PID[4].error[0] = forearm_PID[4].error[1] = forearm_PID[4].error[2] = forearm_PID[4].Pout = forearm_PID[4].Iout = forearm_PID[4].Dout = forearm_PID[4].out = 0.0f;
 
     forearm_PID[5].mode = PID_POSITION;
     forearm_PID[5].Kp = CATCH_ANGLE_KP;
