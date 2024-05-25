@@ -1,6 +1,7 @@
 #include "forearm.h"
 #include "CAN_receive.h"
 #include "DMPower.h"
+#include "remote_control.h"
 
 void forearm_task(void const *argument)
 {
@@ -833,3 +834,25 @@ const forearm_ctrl_t *get_forearm_control_point(void)
     return &forearm;
 }
  
+ //软件重启按键延时
+uint16_t software_reset_key_delay_time = 0;
+/**
+  * @brief          通过按键,进行重启
+  * @param[in]    
+  * @retval         返回空
+  * @waring         
+  */
+void software_reset()
+{
+    //软件复位,让单片机重启  同时按下Z X CTRL 一秒
+    if(KEY_PRESSED_OFFSET_Z && KEY_PRESSED_OFFSET_X && KEY_PRESSED_OFFSET_CTRL)
+    {   
+       software_reset_key_delay_time++;
+    }
+
+    if(software_reset_key_delay_time >= 2000)
+    { 
+        NVIC_SystemReset();
+        software_reset_key_delay_time = 0;
+    }
+}

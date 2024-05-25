@@ -11,5 +11,5 @@
 
 
 
-void run();
+void run(void);
 #endif
