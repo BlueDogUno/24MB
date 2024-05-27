@@ -33,7 +33,7 @@ elbow
 
     x_stretch *2    can2_3&4
     y_slid          can2_5
-    z_lift *2       can1_1&2
+    z_lift *2       can1_3&4
 
 fuction
 

@@ -1,7 +1,7 @@
 .\new_legends_project\freertos.o: ../Core/Src/freertos.c
 .\new_legends_project\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-.\new_legends_project\freertos.o: D:\Code\IDEss\keil\ARM\ARMCC\Bin\..\include\stddef.h
-.\new_legends_project\freertos.o: D:\Code\IDEss\keil\ARM\ARMCC\Bin\..\include\stdint.h
+.\new_legends_project\freertos.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\new_legends_project\freertos.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\new_legends_project\freertos.o: ../Core/Inc/FreeRTOSConfig.h
 .\new_legends_project\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 .\new_legends_project\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h

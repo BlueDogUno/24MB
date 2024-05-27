@@ -1,7 +1,7 @@
 .\new_legends_project\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/croutine.c
 .\new_legends_project\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-.\new_legends_project\croutine.o: D:\Code\IDEss\keil\ARM\ARMCC\Bin\..\include\stddef.h
-.\new_legends_project\croutine.o: D:\Code\IDEss\keil\ARM\ARMCC\Bin\..\include\stdint.h
+.\new_legends_project\croutine.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\new_legends_project\croutine.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\new_legends_project\croutine.o: ../Core/Inc/FreeRTOSConfig.h
 .\new_legends_project\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 .\new_legends_project\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h

@@ -1,9 +1,9 @@
 .\new_legends_project\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c
-.\new_legends_project\cmsis_os.o: D:\Code\IDEss\keil\ARM\ARMCC\Bin\..\include\string.h
+.\new_legends_project\cmsis_os.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\new_legends_project\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 .\new_legends_project\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-.\new_legends_project\cmsis_os.o: D:\Code\IDEss\keil\ARM\ARMCC\Bin\..\include\stddef.h
-.\new_legends_project\cmsis_os.o: D:\Code\IDEss\keil\ARM\ARMCC\Bin\..\include\stdint.h
+.\new_legends_project\cmsis_os.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\new_legends_project\cmsis_os.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\new_legends_project\cmsis_os.o: ../Core/Inc/FreeRTOSConfig.h
 .\new_legends_project\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 .\new_legends_project\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h

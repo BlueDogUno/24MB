@@ -13,7 +13,6 @@
 ".\new_legends_project\chassis.o"
 ".\new_legends_project\can_receive.o"
 ".\new_legends_project\lift.o"
-".\new_legends_project\communication.o"
 ".\new_legends_project\bsp_rc.o"
 ".\new_legends_project\bsp_can.o"
 ".\new_legends_project\stm32f4xx_hal_can.o"
