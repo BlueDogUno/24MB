@@ -41,11 +41,11 @@ void lift_set_mode(void)
         {
             if (left_rocker_up)
             {
-                strt.can.lift.state = down;
+                strt.can.lift.state = up;
             }
             else if(left_rocker_down)
             {
-                strt.can.lift.state = up;
+                strt.can.lift.state = down;
             }
             else
             {
@@ -187,26 +187,26 @@ void lift_control(void)
 
     if (state_is_stop)
     {
-        strt.can.lift.left_target   =   -LIFT_HOLD_CURRENT;
-        strt.can.lift.right_target  =   LIFT_HOLD_CURRENT;
+        strt.can.lift.left_target   =   LIFT_HOLD_CURRENT;
+        strt.can.lift.right_target  =   -LIFT_HOLD_CURRENT;
     }
 
     if (state_is_up) 
     {
-        strt.can.lift.left_target   =   -100 * 20;
-        strt.can.lift.right_target  =   100 * 20;
+        strt.can.lift.left_target   =   100 * 20;
+        strt.can.lift.right_target  =   -100 * 20;
     }
 
     if (state_is_down)
     {
-        strt.can.lift.left_target   =   5*19;//40 * 19;
-        strt.can.lift.right_target  =   -5*19;//-40 * 19;
+        strt.can.lift.left_target   =   -5*19;//40 * 19;
+        strt.can.lift.right_target  =   5*19;//-40 * 19;
     }
 
     if (state_is_shut)
     {
-        strt.can.lift.left_target   =   -LIFT_HOLD_CURRENT;
-        strt.can.lift.right_target  =   LIFT_HOLD_CURRENT;
+        strt.can.lift.left_target   =   LIFT_HOLD_CURRENT;
+        strt.can.lift.right_target  =   -LIFT_HOLD_CURRENT;
     }
 
     // if(strt.auto_behave->target_mode == 1 && lift_keyboard == 1/*&& strt.auto_behave->a_takein_mode == 0*/ ) //自动模式
