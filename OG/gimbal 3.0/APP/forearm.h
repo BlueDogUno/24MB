@@ -199,6 +199,39 @@ typedef struct
 
 } pid_strt;
 
+//===========================图传舵机控制===========================
+typedef enum
+{
+    LOOK_MID,           //平视
+
+    LOOK_UP,           //抬头
+    LOOK_DOWN,          //俯视
+
+    LOOK_LEFT,          //左转
+    LOOK_RIGHT,         //右转
+
+} photospin_state;      //控制模式
+
+//TODO 待测试
+#define pitch_look_up_data 900          //抬头
+#define pitch_look_mid_data 725        //平视
+#define pitch_look_down_data  530      //俯视
+
+typedef struct //图传舵机数据结构体
+{
+
+    bool_t yaw_state;               //图传舵机yaw轴状态
+
+    uint8_t pitch_state;            //图传舵机pitch轴状态
+
+    uint8_t yaw_flag;
+
+    uint8_t pitch_flag;
+
+}PhotoSpin;
+
+//==============================================================================
+
 //一号电机PID   小臂roll
 float FOREARM_ROLL_KP     =   10.0f;
 float FOREARM_ROLL_KI     =   0.0f;
@@ -250,5 +283,6 @@ fp32 forearm_PID_calc(pid_strt *pid, int16_t ref, int16_t set);
 void forearm_PID_init(void);
 void forearm_init(void);
 void auto_ore(void);
+void PhotoSpin_output();                  //控制图传舵机
 
 #endif

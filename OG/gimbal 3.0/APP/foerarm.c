@@ -16,6 +16,7 @@ void forearm_task(void const *argument)
     }
 }
 forearm_ctrl_t forearm;
+PhotoSpin photospin;
 pid_strt forearm_PID[7];
 int16_t servo_data;
 
@@ -855,4 +856,23 @@ void software_reset()
         NVIC_SystemReset();
         software_reset_key_delay_time = 0;
     }
+}
+
+void PhotoSpin_output(){
+
+
+    if(photospin.pitch_state == LOOK_UP){
+
+		__HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_2, pitch_look_up_data);
+
+    }else if (photospin.pitch_state == LOOK_MID){
+
+		__HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_2, pitch_look_mid_data);
+
+    }else if (photospin.pitch_state == LOOK_DOWN){
+
+        __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_2, pitch_look_down_data);
+
+    }
+
 }
