@@ -901,6 +901,9 @@ void forearm_PID_init(void)
 void forearm_init(void)
 {
 
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+
     forearm.rc_data   =   get_remote_control_point();
     forearm.reset_key = get_reset_point();
     forearm_keyboard = 0 ;
