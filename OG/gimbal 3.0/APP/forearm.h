@@ -68,6 +68,8 @@ typedef struct
         int16_t stretch_speed_L;
         int16_t stretch_speed_R;
         int8_t  stretch_state;
+
+        //
         
         //小臂横移
         int16_t slid;
@@ -118,9 +120,12 @@ typedef struct
     #define right_switch_is_mid         (forearm.rc_data->rc.s[0] == 3)
     #define right_switch_is_down        (forearm.rc_data->rc.s[0] == 2)
 
+    #define left_rocker_right              (forearm.rc_data->rc.ch[2] > 0)
+    #define left_rocker_left            (forearm.rc_data->rc.ch[2] < 0)
+    #define left_rocker_mid             (forearm.rc_data->rc.ch[2] == 0 || forearm.rc_data->rc.ch[3] == 0)
+
     #define left_rocker_up              (forearm.rc_data->rc.ch[3] > 0)
     #define left_rocker_down            (forearm.rc_data->rc.ch[3] < 0)
-    #define left_rocker_mid             (forearm.rc_data->rc.ch[3] == 0)
 
     //出爪状态
     #define stretch_state_is_stop       (forearm.can.stretch_state == stop)
@@ -200,6 +205,20 @@ typedef struct
 } pid_strt;
 
 //===========================图传舵机控制===========================
+#define PHOTOSPIN_PITCH_SPEED  2 
+#define PHOTOSPIN_YAW_SPEED  2
+
+
+#define PS_PITCH_MID_ANGLE 725
+#define PS_PITCH_ANGLE_MAX 900
+#define PS_PITCH_ANGLE_MIN 530
+
+#define PS_YAW_MID_ANGLE 725
+#define PS_YAW_ANGLE_MAX 900
+#define PS_YAW_ANGLE_MIN 530
+
+#define PS_DELAY 5
+
 typedef enum
 {
     LOOK_MID,           //平视
@@ -210,25 +229,19 @@ typedef enum
     LOOK_LEFT,          //左转
     LOOK_RIGHT,         //右转
 
-} photospin_state;      //控制模式
-
-//TODO 待测试
-#define pitch_look_up_data 900          //抬头
-#define pitch_look_mid_data 725        //平视
-#define pitch_look_down_data  530      //俯视
+} photospin_state_strt;      //控制模式
 
 typedef struct //图传舵机数据结构体
 {
-
-    bool_t yaw_state;               //图传舵机yaw轴状态
-
-    uint8_t pitch_state;            //图传舵机pitch轴状态
-
-    uint8_t yaw_flag;
-
-    uint8_t pitch_flag;
+    int8_t spin_state;
+    uint8_t photo_angle_target;
 
 }PhotoSpin;
+
+int8_t photospin_state;
+
+PhotoSpin photo_pitch;
+PhotoSpin photo_yaw;
 
 //==============================================================================
 
@@ -283,6 +296,7 @@ fp32 forearm_PID_calc(pid_strt *pid, int16_t ref, int16_t set);
 void forearm_PID_init(void);
 void forearm_init(void);
 void auto_ore(void);
+void PhotoSpin_set_sent(void);
 void PhotoSpin_output();                  //控制图传舵机
 
 #endif
