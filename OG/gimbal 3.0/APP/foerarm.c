@@ -11,6 +11,12 @@ void forearm_task(void const *argument)
         forearm_set_mode();     //更改遥控器控制模式
         forearm_control();      //更改电机控制模式
         forearm_can_send();     //CAN协议发送
+
+        PhotoSpin_set_sent();
+        PhotoSpin_output();
+
+        software_reset();
+
         // DM_set_sent();
         // forearm_flip_can_send();  //翻爪can协议
     }
@@ -432,12 +438,75 @@ void forearm_set_mode(void)
             forearm.yaw_stay_angle = forearm.yaw_angle;
         }
     // }
+    //cnm图传视角移动
+    if(forearm_keyboard == 0)
+    {
+        // 遥控器模式
+        if (left_switch_is_mid && right_switch_is_down)
+        {
+            //起始赋值
+            if(left_rocker_up)
+            {
+                photospin.photospin_state = LOOK_UP;
 
+            }else if(left_rocker_down)
+            {
+                photospin.photospin_state = LOOK_DOWN;
+
+            }else if(left_rocker_right)
+            {
+                photospin.photospin_state = LOOK_RIGHT;
+
+            }else if(left_rocker_left)
+            {
+                photospin.photospin_state = LOOK_LEFT;
+            }else 
+            {
+                photospin.photospin_state =   LOOK_STOP;
+            }
+        }
+        else
+        {
+            photospin.photospin_state =   LOOK_STOP;
+        }
+    }else{
+        photospin.photospin_state =   LOOK_STOP;
+        // 键盘模式
+        // if (forearm.rc_data->key.v == KEY_PRESSED_OFFSET_X)
+        // {
+        //     //起始赋值
+        //     if(forearm.rc_data->mouse.y < 0)
+        //     {
+        //         photospin.photospin_state = LOOK_UP;
+        //     }
+        //     if(forearm.rc_data->mouse.y > 0)
+        //     {
+        //         photospin.photospin_state = LOOK_DOWN;
+        //     }
+        //     if(forearm.rc_data->mouse.y == 0)
+        //     {
+        //         photospin.photospin_state = stop;
+        //     }
+        //     if(forearm.rc_data->mouse.x < 0)
+        //     {
+        //         photospin.photospin_state = LOOK_LEFT;
+        //     }
+        //     if(forearm.rc_data->mouse.x > 0)
+        //     {
+        //         photospin.photospin_state = LOOK_RIGHT;
+        //     }
+        //     if(forearm.rc_data->mouse.x == 0)
+        //     {
+        //         photospin.photospin_state = stop;
+        //     }
+        // }
+        // else
+        // {
+        //     photospin.photospin_state =  stop;
+        // }
+    }
 
     //addmotor01
-
-
-
 
 }
 
@@ -468,7 +537,7 @@ void forearm_control(void)
     {
         forearm.can.stretch_target   =   -160 * 19;
     }
-    //控制出抓电机
+    //控制出爪电机
     forearm.can.stretch_L = (int16_t)forearm_PID_calc(&forearm_PID[2],forearm.can.stretch_speed_L,forearm.can.stretch_target);
 
     forearm.can.stretch_R = (int16_t)forearm_PID_calc(&forearm_PID[6],forearm.can.stretch_speed_R,-forearm.can.stretch_target);
@@ -790,6 +859,8 @@ void forearm_PID_init(void)
 //初始化函数指针及参数
 void forearm_init(void)
 {
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
 
     forearm.rc_data   =   get_remote_control_point();
     forearm.reset_key = get_reset_point();
@@ -815,6 +886,10 @@ void forearm_init(void)
 
     forearm.yaw_stay_angle = forearm.yaw_angle;
     forearm.yaw_angle = 0;
+
+    photospin.photospin_state = LOOK_MID;
+    photospin.pitch_angle = PS_PITCH_MID_ANGLE;
+    photospin.yaw_angle = PS_YAW_MID_ANGLE;
     //addmotor09
 
     servo_data = 1500;
@@ -858,21 +933,69 @@ void software_reset()
     }
 }
 
-void PhotoSpin_output(){
+void PhotoSpin_set_sent(void){
+    //图传 PITCH轴
+    if (photospin.photospin_state ==   LOOK_MID)
+    {
 
+    }else if (photospin.photospin_state ==  LOOK_UP)
+    {   
+        photospin.pitch_angle += PHOTOSPIN_PITCH_SPEED;
 
-    if(photospin.pitch_state == LOOK_UP){
+    }else if (photospin.photospin_state ==  LOOK_DOWN)
+    {
+        photospin.pitch_angle -= PHOTOSPIN_PITCH_SPEED;
+    }else if (photospin.photospin_state ==  LOOK_RIGHT)
+    {   
+        photospin.yaw_angle += PHOTOSPIN_YAW_SPEED;
 
-		__HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_2, pitch_look_up_data);
-
-    }else if (photospin.pitch_state == LOOK_MID){
-
-		__HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_2, pitch_look_mid_data);
-
-    }else if (photospin.pitch_state == LOOK_DOWN){
-
-        __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_2, pitch_look_down_data);
-
+    }else if (photospin.photospin_state ==  LOOK_LEFT)
+    {
+        photospin.yaw_angle -= PHOTOSPIN_YAW_SPEED;
     }
+    
 
+    // if (photospin.pitch_angle > PS_PITCH_ANGLE_MAX )
+    // {
+    //     photospin.pitch_angle = PS_PITCH_ANGLE_MAX;
+
+    // }if (photospin.pitch_angle < PS_PITCH_ANGLE_MIN)
+    // {
+    //     photospin.pitch_angle = PS_PITCH_ANGLE_MIN;
+    // }
+
+    // if (photospin.yaw_angle > PS_YAW_ANGLE_MAX )
+    // {
+    //     photospin.yaw_angle = PS_YAW_ANGLE_MAX;
+
+    // }if (photospin.yaw_angle < PS_YAW_ANGLE_MIN)
+    // {
+    //     photospin.yaw_angle = PS_YAW_ANGLE_MIN;
+    // }
+
+    
+
+}
+
+void PhotoSpin_output(void){
+
+
+    // if(photospin.photospin_state == LOOK_UP || photospin.photospin_state == LOOK_DOWN){
+
+	// 	__HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_2, photospin.pitch_angle);
+
+    // }else if(photospin.photospin_state == LOOK_RIGHT || photospin.photospin_state == LOOK_LEFT){
+
+	// 	__HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_1,photospin.yaw_angle);
+
+    // }
+    if (photospin.photospin_state == LOOK_MID){
+
+		__HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_2, PS_PITCH_MID_ANGLE);
+        __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_1, PS_YAW_MID_ANGLE);
+    }else {
+        __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_2, photospin.pitch_angle);
+        __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_1,photospin.yaw_angle);
+    }
+    
 }
